@@ -1,0 +1,36 @@
+{"frames": {
+
+"switchLeft.png":
+{
+	"frame": {"x":2,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+},
+"switchMid.png":
+{
+	"frame": {"x":74,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+},
+"switchRight.png":
+{
+	"frame": {"x":146,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "switch_spritesheet.png",
+	"format": "RGBA8888",
+	"size": {"w":218,"h":74},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6ab1f25526ce34f845ab5de5211e5a60:9ea61fdcd09c64c27da272acaa742d8f:3b467c57d2e74cc1433658a8b32497c5$"
+}
+}
