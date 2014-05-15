@@ -20,7 +20,8 @@ game.PlatformEntity = game.SolidEntity.extend({
 	this.renderable.addAnimation("animation", [0]);
 	this.renderable.setCurrentAnimation("animation");
 	this.setVelocity(4,3);
-	this.vertical = true;
+	
+	this.vertical = settings.vertical;
 	this.offsetX = 300;
 	this.offsetY = 300;
 	this.gravity = 0;	

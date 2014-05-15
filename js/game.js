@@ -98,7 +98,7 @@ var game = {
 		// Start the game.
 		me.state.change(me.state.PLAY);
 		
-		me.debug.renderHitBox = true;
-		me.plugin.register(debugPanel, "debug");
+		//me.debug.renderHitBox = true;
+		//me.plugin.register(debugPanel, "debug");
 	}
 };
