@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -64,4 +65,118 @@
 			});
 		</script>
 	</body>
+=======
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Platformer : " />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Platformer</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/jpoiri/platformer">View on GitHub</a>
+
+          <h1 id="project_title">Platformer</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/jpoiri/platformer/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/jpoiri/platformer/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="platformer" class="anchor" href="#platformer"><span class="octicon octicon-link"></span></a>platformer</h1>
+
+<p>&lt;!DOCTYPE HTML&gt;
+
+    </p>
+        melonJS Template
+        &lt;!-- Canvas placeholder --&gt;
+        <div></div>
+
+<pre><code>    &lt;!-- melonJS Library --&gt;
+    &lt;script type="text/javascript" src="lib/melonJS-0.9.11.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Plugin(s) --&gt;
+    &lt;script type="text/javascript" src="lib/plugins/debugPanel.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Game Scripts --&gt;
+    &lt;script type="text/javascript" src="js/game.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/resources.js"&gt;&lt;/script&gt;
+
+    &lt;!-- &lt;script type="text/javascript" src="js/entities/entities.js"&gt;&lt;/script&gt; --&gt;
+    &lt;script type="text/javascript" src="js/entities/player.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/solid.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/block.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/platform.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/coin.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/gem.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/star.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/mushroom.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/fireball.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/HUD.js"&gt;&lt;/script&gt;
+
+    &lt;script type="text/javascript" src="js/screens/title.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/screens/play.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Bootstrap &amp; Mobile optimization tricks --&gt;
+    &lt;script type="text/javascript"&gt;
+        window.onReady(function onReady() {
+            game.onload();
+
+            // Mobile browser hacks
+            if (me.device.isMobile &amp;&amp; !navigator.isCocoonJS) {
+                // Prevent the webview from moving on a swipe
+                window.document.addEventListener("touchmove", function (e) {
+                    e.preventDefault();
+                    window.scroll(0, 0);
+                    return false;
+                }, false);
+
+                // Scroll away mobile GUI
+                (function () {
+                    window.scrollTo(0, 1);
+                    me.video.onresize(null);
+                }).defer();
+
+                me.event.subscribe(me.event.WINDOW_ONRESIZE, function (e) {
+                    window.scrollTo(0, 1);
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Platformer maintained by <a href="https://github.com/jpoiri">jpoiri</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+>>>>>>> 728999453d8f32eed931b43cf05729d9d1eb8924
 </html>
