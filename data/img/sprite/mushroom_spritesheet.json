@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "mushroomBrown.png",
+	"frame": {"x":2,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+},
+{
+	"filename": "mushroomRed.png",
+	"frame": {"x":74,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "mushroom_spritesheet.png",
+	"format": "RGBA8888",
+	"size": {"w":146,"h":74},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6c83876592d80819588a0ffc05abd28e:24e9f0dd429b842d8a6369ca77573f7c:f10363b06c8ae47831ef5041db1cecbb$"
+}
+}

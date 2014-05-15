@@ -1,0 +1,44 @@
+{"frames": [
+
+{
+	"filename": "gemBlue.png",
+	"frame": {"x":2,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+},
+{
+	"filename": "gemGreen.png",
+	"frame": {"x":74,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+},
+{
+	"filename": "gemRed.png",
+	"frame": {"x":146,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+},
+{
+	"filename": "gemYellow.png",
+	"frame": {"x":218,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "gem_spritesheet.png",
+	"format": "RGBA8888",
+	"size": {"w":290,"h":74},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:d3f8edf02f3592f8af301bf51445e028:42861f54b48bea761ac6b923c845090c:436fceec7aec3e26eed91363bdb1edb7$"
+}
+}

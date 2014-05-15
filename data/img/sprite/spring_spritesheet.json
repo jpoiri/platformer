@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "springboardDown.png",
+	"frame": {"x":2,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+},
+{
+	"filename": "springboardUp.png",
+	"frame": {"x":74,"y":2,"w":70,"h":70},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":70,"h":70},
+	"sourceSize": {"w":70,"h":70}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker ",
+	"version": "1.0",
+	"image": "spring_spritesheet.png",
+	"format": "RGBA8888",
+	"size": {"w":146,"h":74},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:c51e3498b8ae3402643362101513808b:2be5afb8bce9ac32fbc1baa9b48944d2:5a40634099d55bed07fed05e29d259d2$"
+}
+}

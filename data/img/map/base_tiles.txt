@@ -1,0 +1,12 @@
+box = 0 0 24 24
+boxAlt = 24 0 24 24
+boxCoin = 0 24 24 24
+boxCoin_disabled = 24 24 24 24
+boxCoinAlt = 48 0 24 24
+boxCoinAlt_disabled = 48 24 24 24
+boxEmpty = 72 0 24 24
+boxExplosive = 96 0 24 24
+boxExplosive_disabled = 72 24 24 24
+boxExplosiveAlt = 96 24 24 24
+boxItem = 0 48 24 24
+boxItem_disabled = 24 48 24 24
