@@ -43,57 +43,7 @@
  </layer>
  <objectgroup name="Entities" width="20" height="22">
   <object name="player" x="210" y="1190" width="70" height="70"/>
-  <object name="block" x="280" y="1050" width="70" height="70">
-   <properties>
-    <property name="type" value="brick"/>
-   </properties>
-  </object>
-  <object name="block" x="350" y="1050" width="70" height="70">
-   <properties>
-    <property name="coinColor" value="silver"/>
-    <property name="coinValue" value="10"/>
-    <property name="numberOfCoins" value="10"/>
-    <property name="type" value="coin"/>
-   </properties>
-  </object>
-  <object name="block" x="420" y="1050" width="70" height="70">
-   <properties>
-    <property name="type" value="brick"/>
-   </properties>
-  </object>
-  <object name="block" x="350" y="840" width="70" height="70">
-   <properties>
-    <property name="type" value="coin"/>
-   </properties>
-  </object>
-  <object name="block" x="700" y="1050" width="70" height="70">
-   <properties>
-    <property name="type" value="brick"/>
-   </properties>
-  </object>
-  <object name="block" x="840" y="1050" width="70" height="70">
-   <properties>
-    <property name="item" value="fireball"/>
-    <property name="type" value="item"/>
-   </properties>
-  </object>
-  <object name="block" x="840" y="840" width="70" height="70">
-   <properties>
-    <property name="item" value="mushroom"/>
-    <property name="type" value="item"/>
-   </properties>
-  </object>
-  <object name="block" x="980" y="1050" width="70" height="70">
-   <properties>
-    <property name="type" value="brick"/>
-   </properties>
-  </object>
-  <object name="coin" x="420" y="980" width="70" height="70">
-   <properties>
-    <property name="color" value="bronze"/>
-    <property name="value" value="50"/>
-   </properties>
-  </object>
+  <object name="platform" x="490" y="1050" width="70" height="70"/>
  </objectgroup>
  <layer name="Foreground" width="20" height="22">
   <data encoding="base64">

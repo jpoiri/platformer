@@ -1,5 +1,5 @@
 
-game.BlockEntity = me.ObjectEntity.extend({
+game.BlockEntity = game.SolidEntity.extend({
 
     init: function(x, y, settings) {
 	
@@ -21,27 +21,18 @@ game.BlockEntity = me.ObjectEntity.extend({
 	this.flickerTime = settings.flickerTime;
 	this.type = settings.type;
 	this.numberOfCoins = settings.numberOfCoins;
+	this.numberOfGems = settings.numberOfGems;
 	this.coinColor = settings.coinColor;
 	this.coinValue = settings.coinValue;
-
-	if (this.coinColor == null) {
-	    this.coinColor = "gold";
-	}
-	
-	if (this.coinValue == null) {
-	    this.coinValue = 1;
-	}
-	
-	if (this.item == null) {
-	   this.item = "star";
-	}
-	
-	if (this.flickerTime == null) {
-	    this.flickerTime = 100;
-	}
+	this.gemColor = settings.gemColor;
+	this.gemValue = settings.gemValue;
 	
 	if (this.numberOfCoins == null) {
 	    this.numberOfCoins = 10;
+	}
+	
+	if (this.numberOfGems == null) {
+	    this.numberOfGems = 10;
 	}
 	
 	if (this.type == null) {
@@ -61,6 +52,11 @@ game.BlockEntity = me.ObjectEntity.extend({
 	switch(this.type) {
 	    
 	    case "coin":
+		this.renderable.addAnimation("active", [0]);
+		this.renderable.addAnimation("disabled", [1]);
+		break;
+	    
+	    case "gem":
 		this.renderable.addAnimation("active", [0]);
 		this.renderable.addAnimation("disabled", [1]);
 		break;
@@ -155,49 +151,64 @@ game.BlockEntity = me.ObjectEntity.extend({
 	if (this.numberOfCoins == 0) {
 	    this.disable();
 	}
+    },
+    
+    spawnGem: function() {
 	
+	//if the player has not spawn every coin yet
+	if (this.numberOfGems > 0) {
+	    
+	    //create a new coin object.
+	    var spawnObj = new game.GemEntity(this.pos.x  + (this.width / 2), this.pos.y + (this.height / 2), { color: this.gemColor, value: this.gemValue});
+
+	    spawnObj.z = 3;
+	    
+	    //move the coin north for 2.5 seconds then remove it from the game.
+	    var tween = new me.Tween(spawnObj.pos).to({ y: this.pos.y }, 250).onComplete(function(){
+		me.game.remove(spawnObj);
+	    });
+	
+	    tween.easing(me.Tween.Easing.Quadratic.Out);
+	    tween.start();
+	
+	    me.game.add(spawnObj);
+	    
+	    //decrease the number of coins left in the block.
+	    this.numberOfGems--;
+	    
+	    game.addCoin(spawnObj.value);
+	}
+	
+	if (this.numberOfGems == 0) {
+	    this.disable();
+	}
     },
 
     onCollision: function(res, obj) {
+	this.parent(res, obj);
 	
 	if (res.y < 0) {
 	    
-	    if (this.type == "brick") {
-		
-		me.game.world.removeChild(this);
-
-	    } else {
-		
-		if (this.state == "active") {
+	    if (this.state == "active") {
 		    
-		    if (this.type == "coin") {
+		switch (this.type) {
+			
+		    case "coin": 
 			this.spawnCoin();
-		    } else if (this.type == "item") {
+			break;
+		    case "item":
 			this.spawnItem();
-		    }  
-		} 
-		
-	    }
-
-	    obj.pos.y = this.pos.y +  this.height;
-	    obj.vel.y = 0;
-	    
-	} else if (res.y > 0) {
-	    
-	    obj.pos.y = this.pos.y - obj.height;
-	    obj.vel.y = 0;
-	    obj.falling = false;
-	    obj.jumping = false;
-	    
-	} else if (res.x > 0) {
-	    
-	    obj.pos.x = this.pos.x - obj.width;
-	    
-	} else if (res.x < 0) {
-	    
-	    obj.pos.x = this.pos.x + this.width;
-	}
+			break;
+		    case "gem":
+			this.spawnGem();
+			break;
+		    case "brick":
+			me.game.world.removeChild(this);
+			break;
+		}
+	    } 
+	} 
     }
-    
+
 })
 

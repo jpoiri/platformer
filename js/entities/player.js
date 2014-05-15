@@ -36,6 +36,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
 	this.updateColRect(5, 58, -1, 0);
 	
 	this.crouch = false;
+	this.collidable = true;
 	
 	//follow the viewport on both axis.
 	me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);

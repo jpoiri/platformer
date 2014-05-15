@@ -53,12 +53,7 @@ game.GemEntity = me.CollectableEntity.extend({
     
     onCollision: function(res, obj) {
 	
-	game.data.gems = game.data.gems + this.value;
-	
-	if (game.data.gems == 100) {
-	    game.data.gems = 0;
-	    game.data.lives++;
-	}
+	game.addGem(this.value);
 	
 	//remove from world.
 	me.game.world.removeChild(this);

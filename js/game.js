@@ -27,6 +27,22 @@ var game = {
 		}
 	},
 	
+	addGem: function(gem) {
+		
+		this.data.gems += gem;
+		
+		console.log("gems:" + this.data.gems);
+		
+		if (this.data.gems == 100) {
+			
+		   this.data.lives++;
+		   this.data.gems = 0;
+		   
+		   console.log("lives:" + this.data.lives);
+		   console.log("gems:" + this.data.gems);
+		}
+	},
+	
 	
 	// Run on page load.
 	"onload" : function () {
@@ -70,6 +86,7 @@ var game = {
 		me.entityPool.add("star", game.StarEntity);
 		me.entityPool.add("mushroom", game.MushroomEntity);
 		me.entityPool.add("fireball", game.FireBallEntity);
+		me.entityPool.add("platform", game.PlatformEntity);
              
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.LEFT,  "left");
@@ -81,7 +98,7 @@ var game = {
 		// Start the game.
 		me.state.change(me.state.PLAY);
 		
-		//me.debug.renderHitBox = true;
-		//me.plugin.register(debugPanel, "debug");
+		me.debug.renderHitBox = true;
+		me.plugin.register(debugPanel, "debug");
 	}
 };
