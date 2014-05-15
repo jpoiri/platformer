@@ -34,7 +34,68 @@
         <h1>
 <a name="platformer" class="anchor" href="#platformer"><span class="octicon octicon-link"></span></a>platformer</h1>
 
-<p><a href="index.html"></a>Go to game</p>
+<p>&lt;!DOCTYPE HTML&gt;
+
+    </p>
+        melonJS Template
+        &lt;!-- Canvas placeholder --&gt;
+        <div></div>
+
+<pre><code>    &lt;!-- melonJS Library --&gt;
+    &lt;script type="text/javascript" src="lib/melonJS-0.9.11.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Plugin(s) --&gt;
+    &lt;script type="text/javascript" src="lib/plugins/debugPanel.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Game Scripts --&gt;
+    &lt;script type="text/javascript" src="js/game.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/resources.js"&gt;&lt;/script&gt;
+
+    &lt;!-- &lt;script type="text/javascript" src="js/entities/entities.js"&gt;&lt;/script&gt; --&gt;
+    &lt;script type="text/javascript" src="js/entities/player.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/solid.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/block.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/platform.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/coin.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/gem.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/star.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/mushroom.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/fireball.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/entities/HUD.js"&gt;&lt;/script&gt;
+
+    &lt;script type="text/javascript" src="js/screens/title.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="js/screens/play.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Bootstrap &amp; Mobile optimization tricks --&gt;
+    &lt;script type="text/javascript"&gt;
+        window.onReady(function onReady() {
+            game.onload();
+
+            // Mobile browser hacks
+            if (me.device.isMobile &amp;&amp; !navigator.isCocoonJS) {
+                // Prevent the webview from moving on a swipe
+                window.document.addEventListener("touchmove", function (e) {
+                    e.preventDefault();
+                    window.scroll(0, 0);
+                    return false;
+                }, false);
+
+                // Scroll away mobile GUI
+                (function () {
+                    window.scrollTo(0, 1);
+                    me.video.onresize(null);
+                }).defer();
+
+                me.event.subscribe(me.event.WINDOW_ONRESIZE, function (e) {
+                    window.scrollTo(0, 1);
+                });
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p></p>
       </section>
     </div>
 
