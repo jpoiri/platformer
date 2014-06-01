@@ -111,15 +111,51 @@ game.PlayerEntity = me.ObjectEntity.extend({
             }
         }
 	
-	var res = me.game.collide(this);
 	
-	console.log("player collision" + res);
-    
         // check & update player movement
         this.updateMovement();
 	
-	var res = me.game.collide(this);
- 
+	var res = me.game.world.collide(this);
+	
+	if (res != null && res.type == "platform" && res.y >= 0) {
+	    
+	    console.log("hit");
+	    
+	    if (res.y >= 0) {
+		
+		 switch(res.obj.direction) {
+	    
+		case "left":
+		
+		    this.pos.x -= this.accel.x * me.timer.tick
+		    break;
+	    
+		case "right":
+		
+		    this.pos.x += this.accel.x * me.timer.tick
+		    break;
+	    
+		case "up":
+		
+		    //this.vel.y -= this.accel.y * me.timer.tick
+		    //this.falling = false;
+		    break;
+	    
+		case "down":
+		
+		    this.vel.y += this.accel.y * me.timer.tick
+		    break;
+		}
+		
+	    } else if (res.y <= 0) {
+		
+		this.vel.y = 0;
+		//code
+	    }
+	    
+	   
+	}
+	
         // update animation if necessary
         if (this.vel.x!=0 || this.vel.y!=0) {
             // update object animation
