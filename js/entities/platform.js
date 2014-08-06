@@ -1,31 +1,33 @@
 
-game.PlatformEntity = game.SolidEntity.extend({
+game.PlatformEntity = me.ObjectEntity.extend({
 
     init: function(x, y, settings) {
 	this.parent(x, y, settings);
 	
 	//create a new texture atlas
 	this.texture = new me.TextureAtlas(
-	    me.loader.getJSON("block_spritesheet"),
-	    me.loader.getImage("block_spritesheet")
+	    me.loader.getJSON("platform_spritesheet"),
+	    me.loader.getImage("platform_spritesheet")
 	);
 	
-	//create animation from texture atlas
-	this.renderable = this.texture.createAnimationFromName([
-	     "brickWall.png"
-	]);
-	
-	// set the renderable position to bottom center
-	this.anchorPoint.set(0.5, 1.0);
-	this.renderable.addAnimation("animation", [0]);
-	this.renderable.setCurrentAnimation("animation");
+	this.type = settings.type;
 	this.terrain = settings.terrain != null ? settings.terrain : "brick";
-	this.velocity = settings.speed != null ? settings.velocity : 3;
+	this.velocity = settings.velocity != null ? settings.velocity : 3;
 	this.offsetX = settings.offset != null ? settings.offset : 300;
 	this.offsetY = settings.offset != null  ? settings.offset: 300;
 	this.direction = settings.direction != null ? settings.direction :  "right";
 	this.gravity = 0;
 	
+		//create animation from texture atlas
+	this.renderable = this.texture.createAnimationFromName([
+	     this.terrain + ".png"
+	]);
+	
+	this.anchorPoint.set(0.5, 1.0);
+	this.renderable.addAnimation("animation", [0]);
+	this.renderable.setCurrentAnimation("animation");
+	this.alwaysUpdate = true;
+
 	
 	switch(this.direction) {
 	    
@@ -58,11 +60,11 @@ game.PlatformEntity = game.SolidEntity.extend({
 		break;
 	}
 	
+	
 	this.collidable = true;
-	this.type = "platform";
     },
     
-    update: function() {
+    update: function(delta) {
 	
 	//right case
 	if (this.startX <= this.endX) {
@@ -128,16 +130,11 @@ game.PlatformEntity = game.SolidEntity.extend({
 	
         if (this.vel.x!=0 || this.vel.y!=0) {
 	    
-            this.parent();
+            this.parent(delta);
             return true;
         }
 	
 	return false;
-    },
-
-    onCollision: function(res, obj) {
-	this.parent(res, obj);
-    }
-    
+    },    
 })
 
