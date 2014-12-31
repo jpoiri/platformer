@@ -100,6 +100,18 @@ game.resources = [
 		name: "fireball_spritesheet",
 		type: "image",
 		src: "data/img/sprite/fireball_spritesheet.png"	
+	},
+	
+	{
+		name: "platform_spritesheet",
+		type: "json",
+		src: "data/img/sprite/platform_spritesheet.json"
+	},
+	
+	{
+		name: "platform_spritesheet",
+		type: "image",
+		src: "data/img/sprite/platform_spritesheet.png"	
 	}
 	
 ];

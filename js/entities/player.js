@@ -27,27 +27,29 @@ game.PlayerEntity = me.ObjectEntity.extend({
 	this.renderable.addAnimation("stand", [15]);
 	this.renderable.addAnimation("hurt", [13]);
 	this.renderable.addAnimation("swim",  [18, 19]);
-	
 	this.renderable.setCurrentAnimation("stand");
 	
 	// set the renderable position to bottom center
 	this.anchorPoint.set(0.5, 1.0);
-	
-	this.updateColRect(5, 58, -1, 0);
+	this.lives = 3;
 	
 	this.crouch = false;
 	this.collidable = true;
+	this.alwaysUpdate = true;
+	
+	//get access to background layer on the tile map.
+	this.backgroundLayer = me.game.currentLevel.getLayerByName("Background");
 	
 	//follow the viewport on both axis.
 	me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
     },
 
-    update: function() {
+    update: function(delta) {
     
 	if (me.input.isKeyPressed("run")) {
-	    this.setVelocity(7, 23);
+	    this.setVelocity(7, 21);
 	} else {
-	    this.setVelocity(4, 23);
+	    this.setVelocity(4, 21);
 	}
 	
 	if (me.input.isKeyPressed("left")) {
@@ -84,7 +86,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
 		this.setAnimation("crouch");
 	    }
 	    
-	     this.flipX(false);
+	    this.flipX(false);
 	     
 	} else if (me.input.isKeyPressed("down")) {
 	    
@@ -92,7 +94,10 @@ game.PlayerEntity = me.ObjectEntity.extend({
 	    
 	} else {
 	
-	    this.setAnimation("stand");
+	    if (!this.hurting) {
+		this.setAnimation("stand");
+	    }
+	    
 	    this.vel.x = 0;
 	}
 
@@ -109,34 +114,175 @@ game.PlayerEntity = me.ObjectEntity.extend({
                 // set the jumping flag
                 this.jumping = true;
             }
-        }
+        }	
 	
-	var res = me.game.collide(this);
+	this.updateMovement();
+	
+	//Pit logic.	
+	if (!this.inViewport && this.pos.y > me.game.viewport.getHeight()) {
+	    this.die();
+	    return true;
+	}
+	
+	//Logic to check if player landing on fire or water
+	var tile = this.backgroundLayer.layerData[~~(this.pos.x / this.backgroundLayer.tilewidth)][~~(this.pos.y / this.backgroundLayer.tileheight)];           
     
-        // check & update player movement
-        this.updateMovement();
+	if (tile != null) {
+	    
+	    var tileProperties = this.backgroundLayer.tileset.getTileProperties(tile.tileId);
+	    
+	    if (tileProperties != null
+		    && tileProperties.hurt != null
+		    && tileProperties.hurt) {
+
+		this.hurt();
+                this.vel.y = -this.maxVel.y * me.timer.tick;
+		return true;
+	    }
+	}
+
+	//check if the player had collided with object. 
+	var res = me.game.world.collide(this);
 	
-	var res = me.game.collide(this);
- 
+	if (res != null) {
+	    
+	    switch (res.type) {
+		
+		case "block":
+		    
+		    this.onBlockCollision(res);
+		    break;
+		
+		case "platform":
+		    
+		    this.onPlatformCollision(res);
+		    break;
+	    }
+	}
+
         // update animation if necessary
         if (this.vel.x!=0 || this.vel.y!=0) {
             // update object animation
-            this.parent();
+            this.parent(delta);
             return true;
         }
          
-        // else inform the engine we did not perform
-        // any update (e.g. position, animation)
         return false;
-	
     },
     
+    onBlockCollision: function(res) {
+	
+	this.pos.x -= res.x;
+        this.pos.y -= res.y;
+	
+        if (res.x) {
+	    this.vel.x = 0;
+	}
+        
+	if (res.y) {
+	    this.vel.y = 0;
+	}
+	    
+	if (res.y > 0) {
+	    
+	    this.falling = false;
+	    this.jumping = false;
+	}
+    },
+    
+    onPlatformCollision: function(res) {
+	
+	
+	this.pos.x -= res.x;
+        this.pos.y -= res.y;
+	
+        if (res.x) {
+	    this.vel.x = 0;
+	}
+        
+	if (res.y) {
+	    this.vel.y = 0;
+	}
+	    
+	if (res.y > 0) {
+	    
+	    this.falling = false;
+	    this.jumping = false;
+			
+	}
+	
+	if (game.collision.isBottomCollision(res)) {
+		
+	    switch(res.obj.direction) {
+	    
+		case "left":
+	    
+		    this.pos.x -= res.obj.accel.x * me.timer.tick
+		    me.game.world.collide(this);
+		    break;
+	    
+		case "right":
+
+		    this.pos.x += res.obj.accel.x * me.timer.tick
+		    me.game.world.collide(this);
+		    break;
+	    
+		case "up":
+		    
+		    me.game.world.collide(this);
+		    break;
+	    
+		case "down":
+		
+		    this.vel.y += res.obj.accel.y * me.timer.tick
+		    me.game.world.collide(this);
+		    break;
+	    }
+
+	} else if (game.collision.isTopCollision(res)) {
+		
+	    this.vel.y += this.accel.y * me.timer.tick;
+	}
+    },
+    
+    /**
+     * This method is responsible to handle when the player gets hurt
+     */
+    hurt: function() {
+	
+	--this.lives;
+	
+	this.setAnimation("hurt");
+	
+	if (this.lives == 0) {
+	    this.die();
+	} else {
+	    
+	    //set the hurt flag true
+	    this.hurting = true;
+	    
+	    //get reference to the player
+	    var obj = this;
+	    
+	    this.renderable.flicker(500, function() {
+	      obj.hurting = false;
+	    }); 
+	}
+    },
+    
+    /**
+     * This method is responsible to handle when the players dies.
+     */
+    die: function() {
+	me.game.world.removeChild(this);
+	me.state.change(me.state.PLAY);
+    },
+
     setAnimation: function(animationName) {
 	if (!this.renderable.isCurrentAnimation(animationName)) {
 	    this.renderable.setCurrentAnimation(animationName);
 	}
     },
-    
     
     setInvincible: function(flickerTime) {
 	

@@ -1,5 +1,5 @@
 
-game.BlockEntity = game.SolidEntity.extend({
+game.BlockEntity = me.ObjectEntity.extend({
 
     init: function(x, y, settings) {
 	
@@ -20,12 +20,17 @@ game.BlockEntity = game.SolidEntity.extend({
 	this.item = settings.item;
 	this.flickerTime = settings.flickerTime;
 	this.type = settings.type;
+	this.blockType = settings.blockType;
 	this.numberOfCoins = settings.numberOfCoins;
 	this.numberOfGems = settings.numberOfGems;
 	this.coinColor = settings.coinColor;
 	this.coinValue = settings.coinValue;
 	this.gemColor = settings.gemColor;
 	this.gemValue = settings.gemValue;
+	this.width = settings.width;
+	this.height = settings.height;
+	this.spawnWidth = 70;
+	this.spawnHeight = 70;
 	
 	if (this.numberOfCoins == null) {
 	    this.numberOfCoins = 10;
@@ -35,8 +40,8 @@ game.BlockEntity = game.SolidEntity.extend({
 	    this.numberOfGems = 10;
 	}
 	
-	if (this.type == null) {
-	    this.type = "brick";
+	if (this.blockType == null) {
+	    this.blockType = "brick";
 	}
 	
 	this.addAnimation();
@@ -49,7 +54,7 @@ game.BlockEntity = game.SolidEntity.extend({
     
     addAnimation: function() {
 	
-	switch(this.type) {
+	switch(this.blockType) {
 	    
 	    case "coin":
 		this.renderable.addAnimation("active", [0]);
@@ -80,20 +85,20 @@ game.BlockEntity = game.SolidEntity.extend({
 	switch (this.item) {
 	    
 	    case "fireball":
-		spawnObj = new game.FireBallEntity(this.pos.x  + (this.width / 2), this.pos.y + (this.height / 2), {});
+		spawnObj = new game.FireBallEntity(this.pos.x, this.pos.y, { height : this.spawnHeight, width: this.spawnWidth} );
 		break;
 	    case "star":
-		spawnObj = new game.StarEntity(this.pos.x  + (this.width / 2), this.pos.y + (this.height / 2), { fickerTime: this.flickerTime});
-		break;
+		spawnObj = new game.StarEntity(this.pos.x, this.pos.y, { height : this.spawnHeight, width: this.spawnWidth,  fickerTime: this.flickerTime} );
+		break
 	    case "mushroom":
-		spawnObj = new game.MushroomEntity(this.pos.x  + (this.width / 2), this.pos.y + (this.height / 2), {});
+		spawnObj = new game.MushroomEntity(this.pos.x, this.pos.y, { height : this.spawnHeight, width: this.spawnWidth} );
 		break;
 	}
 	
 	spawnObj.z = 3;
 	
 	//do vertical translation for 5 seconds.
-	var tween = new me.Tween(spawnObj.pos).to({ y: this.pos.y }, 500);
+	var tween = new me.Tween(spawnObj.pos).to({ y: this.pos.y - (this.spawnHeight + 5) }, 500);
 	
 	tween.easing(me.Tween.Easing.Quadratic.Out);
 	
@@ -101,7 +106,7 @@ game.BlockEntity = game.SolidEntity.extend({
 	
 	this.disable();
 	
-	me.game.add(spawnObj);
+	me.game.world.addChild(spawnObj);
     },
     
     activate: function() {
@@ -128,19 +133,19 @@ game.BlockEntity = game.SolidEntity.extend({
 	if (this.numberOfCoins > 0) {
 	    
 	    //create a new coin object.
-	    var spawnObj = new game.CoinEntity(this.pos.x  + (this.width / 2), this.pos.y + (this.height / 2), { color: this.coinColor, value: this.coinValue});
+	    var spawnObj = new game.CoinEntity(this.pos.x, this.pos.y, {height: this.spawnHeight, width: this.spawnWidth, color: this.coinColor, value: this.coinValue});
 
 	    spawnObj.z = 3;
 	    
 	    //move the coin north for 2.5 seconds then remove it from the game.
-	    var tween = new me.Tween(spawnObj.pos).to({ y: this.pos.y }, 250).onComplete(function(){
-		me.game.remove(spawnObj);
+	    var tween = new me.Tween(spawnObj.pos).to({ y: this.pos.y - this.spawnHeight }, 250).onComplete(function(){
+		me.game.world.removeChild(spawnObj);
 	    });
 	
 	    tween.easing(me.Tween.Easing.Quadratic.Out);
 	    tween.start();
 	
-	    me.game.add(spawnObj);
+	    me.game.world.addChild(spawnObj);
 	    
 	    //decrease the number of coins left in the block.
 	    this.numberOfCoins--;
@@ -159,19 +164,19 @@ game.BlockEntity = game.SolidEntity.extend({
 	if (this.numberOfGems > 0) {
 	    
 	    //create a new coin object.
-	    var spawnObj = new game.GemEntity(this.pos.x  + (this.width / 2), this.pos.y + (this.height / 2), { color: this.gemColor, value: this.gemValue});
+	    var spawnObj = new game.GemEntity(this.pos.x, this.pos.y, {height: this.spawnHeight, width: this.spawnWidth, color: this.gemColor, value: this.gemValue});
 
 	    spawnObj.z = 3;
 	    
 	    //move the coin north for 2.5 seconds then remove it from the game.
-	    var tween = new me.Tween(spawnObj.pos).to({ y: this.pos.y }, 250).onComplete(function(){
-		me.game.remove(spawnObj);
+	    var tween = new me.Tween(spawnObj.pos).to({ y: this.pos.y - this.spawnHeight}, 250).onComplete(function(){
+		me.game.world.removeChild(spawnObj);
 	    });
 	
 	    tween.easing(me.Tween.Easing.Quadratic.Out);
 	    tween.start();
 	
-	    me.game.add(spawnObj);
+	    me.game.world.addChild(spawnObj);
 	    
 	    //decrease the number of coins left in the block.
 	    this.numberOfGems--;
@@ -187,11 +192,11 @@ game.BlockEntity = game.SolidEntity.extend({
     onCollision: function(res, obj) {
 	this.parent(res, obj);
 	
-	if (res.y < 0) {
+	if (res.y < 0 && !obj.falling) {
 	    
 	    if (this.state == "active") {
 		    
-		switch (this.type) {
+		switch (this.blockType) {
 			
 		    case "coin": 
 			this.spawnCoin();
@@ -207,7 +212,7 @@ game.BlockEntity = game.SolidEntity.extend({
 			break;
 		}
 	    } 
-	} 
+	}
     }
 
 })

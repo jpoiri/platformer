@@ -11,19 +11,33 @@ var game = {
 		
 	},
 	
+	collision : {
+		
+		isTopCollision: function(res) {
+			return (res != null && res.y < 0)  ? true : false;
+		},
+		
+		isBottomCollision: function(res) {
+			return (res != null && res.y > 0)  ? true : false;
+		},
+		
+		isLeftCollision: function(res) {
+			return (res != null && res.x < 0)  ? true : false;
+		},
+		
+		isRightCollision: function(res) {
+			return (res != null && res.x > 0)  ? true : false;
+		}
+	},
+	
 	addCoin: function(coin) {
 		
 		this.data.coins += coin;
-		
-		console.log("coins:" + this.data.coins);
-		
+
 		if (this.data.coins == 100) {
 			
 		   this.data.lives++;
 		   this.data.coins = 0;
-		   
-		   console.log("lives:" + this.data.lives);
-		   console.log("coins:" + this.data.coins);
 		}
 	},
 	
@@ -79,14 +93,14 @@ var game = {
 		me.state.set(me.state.PLAY, new game.PlayScreen());
 		
 		// add our player entity in the entity pool
-		me.entityPool.add("player", game.PlayerEntity);
-		me.entityPool.add("block", game.BlockEntity);
-		me.entityPool.add("coin", game.CoinEntity);
-		me.entityPool.add("gem", game.GemEntity);
-		me.entityPool.add("star", game.StarEntity);
-		me.entityPool.add("mushroom", game.MushroomEntity);
-		me.entityPool.add("fireball", game.FireBallEntity);
-		me.entityPool.add("platform", game.PlatformEntity);
+		me.pool.register("player", game.PlayerEntity);
+		me.pool.register("block", game.BlockEntity);
+		me.pool.register("coin", game.CoinEntity);
+		me.pool.register("gem", game.GemEntity);
+		me.pool.register("star", game.StarEntity);
+		me.pool.register("mushroom", game.MushroomEntity);
+		me.pool.register("fireball", game.FireBallEntity);
+		me.pool.register("platform", game.PlatformEntity);
              
 		// enable the keyboard
 		me.input.bindKey(me.input.KEY.LEFT,  "left");
@@ -97,7 +111,6 @@ var game = {
       
 		// Start the game.
 		me.state.change(me.state.PLAY);
-		
 		me.debug.renderHitBox = true;
 		me.plugin.register(debugPanel, "debug");
 	}
